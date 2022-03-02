@@ -1,0 +1,186 @@
+{
+	"info": {
+		"_postman_id": "abe090ad-e9dd-4c22-8f65-ed8e608c4cfd",
+		"name": "OmClientApi BFF PROD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get token (we can pass whatever)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"pm.environment.set(\"token\", \"Bearer \" + response);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"claims\":{\"Issuer\":\"Issuer\",\"Issued At\":\"2022-01-12T10:51:44.048Z\",\"Expiration\":\"2022-01-12T10:51:44.048Z\",\"client_id\":\"dd1f8704-c743-4768-89db-56408a80d607\"},\"key\":\"javainuse-secret-key\",\"alg\":\"HS256\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://www.javainuse.com/createJwt",
+					"protocol": "https",
+					"host": [
+						"www",
+						"javainuse",
+						"com"
+					],
+					"path": [
+						"createJwt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post orderId on bff",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const rand= () => {",
+							"  let text = \"\";",
+							"  const possible = \"1234567890\";",
+							"  for (var i = 0; i < 16; i++)",
+							"    text += possible.charAt(Math.floor(Math.random() * possible.length));",
+							"  return text;",
+							"}",
+							"pm.environment.set(\"randomInt\", rand());",
+							"randomInt= pm.environment.get(\"randomInt\");",
+							"pm.environment.set(\"orderId\", \"MyUniqueId\" + randomInt);",
+							"",
+							"console.log(pm.environment.get(\"orderId\"));",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subs_key}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Host",
+						"value": "{{host}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": \"MyUniqueId{{randomInt}}\",\n    \"clientId\": \"CHE001\",\n    \"payments\": [{\n        \"paymentId\": \"MyUniqueId1\",\n        \"paymentAmount\": {\n            \"amount\": \"0.3\",\n            \"currency\": \"USD\"\n        },\n        \"programId\": \"BTTF2IP0006\",\n        \"recipient\": {\n            \"recipientId\": \"NLRTy3McrRPaASE8\",\n            \"firstName\": \"Emmet\",\n            \"lastName\": \"Brown\",\n            \"address\": {\n                \"address1\": \"1640 Riverside Drive\",\n                \"city\": \"City Valley\",\n                \"state\": \"CA\",\n                \"postalCode\": \"91905\",\n                \"countryCode\": \"USA\"\n            },\n            \"mobilePhone\": \"+191165554385\",\n            \"emailAddress\": \"local.part@domain.com\"\n        }\n    },\n    {\n        \"paymentId\": \"MyUniqueId12\",\n        \"paymentAmount\": {\n            \"amount\": \"0.3\",\n            \"currency\": \"USD\"\n        },\n        \"programId\": \"BTTF2IP0006\",\n        \"recipient\": {\n            \"recipientId\": \"NLRTy3McrRPaASE8\",\n            \"firstName\": \"Emmet\",\n            \"lastName\": \"Brown\",\n            \"address\": {\n                \"address1\": \"1640 Riverside Drive\",\n                \"city\": \"City Valley\",\n                \"state\": \"CA\",\n                \"postalCode\": \"91905\",\n                \"countryCode\": \"USA\"\n            },\n            \"mobilePhone\": \"+191165554385\",\n            \"emailAddress\": \"local.part@domain.com\"\n        }\n    }]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/OmClientApiBff/api/orders",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"OmClientApiBff",
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get orderId on bff",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subs_key}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base}}/OmClientApiBff/api/orders/{{orderId}}",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"OmClientApiBff",
+						"api",
+						"orders",
+						"{{orderId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"  pm.response.to.have.status(200);",
+					"});"
+				]
+			}
+		}
+	]
+}
