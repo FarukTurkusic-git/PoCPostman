@@ -1,0 +1,54 @@
+{
+	"id": "41552456-eb78-46c8-8d52-4bdca24c8b94",
+	"name": "PRE_PROD",
+	"values": [
+		{
+			"key": "token",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "randomInt",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "orderId",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "host",
+			"value": "apim-om-cluster-westus2-preprod.azure-api.net",
+			"enabled": true
+		},
+		{
+			"key": "base",
+			"value": "https://apim-om-cluster-westus2-preprod.azure-api.net",
+			"enabled": true
+		},
+		{
+			"key": "subs_key",
+			"value": "139a137bc0f24dd5b96a6e4d116622cd",
+			"enabled": true
+		},
+		{
+			"key": "orderRef",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "paymentId",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "paymentId1",
+			"value": "",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2022-02-01T15:27:54.979Z",
+	"_postman_exported_using": "Postman/8.12.5"
+}
