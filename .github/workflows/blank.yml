@@ -34,8 +34,11 @@ jobs:
         
     # Run POSTMAN collection and output the file as html
       - name: Run POSTMAN collection
+        id: run-newman
         run: |
          newman run ./OmClientApi_test_added.json -e ./PRE_PROD.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --reporter-htmlextra-darkTheme  > testResults/runreport1.html  
+      - name: Output summary to console
+        run: echo ${{ steps.run-newman.outputs.summary }}
         
     # Upload the contents of Test Results directory to workspace
       - name: Output the run Details
