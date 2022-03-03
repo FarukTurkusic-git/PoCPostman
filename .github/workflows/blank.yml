@@ -36,7 +36,7 @@ jobs:
       - name: Run POSTMAN collection
         id: run-newman
         run: |
-         newman run ./OmClientApi_BFF_PROD\ Copy.postman_collection.json -e ./PRE_PROD.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --reporter-htmlextra-darkTheme  > testResults/runreport1.html --bail newman  
+         newman run ./OmClientApi_BFF_PROD\ Copy.postman_collection.json -e ./PRE_PROD.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --reporter-htmlextra-darkTheme  > testResults/runreport1.html --reporter-htmlextra-logs  
       - name: Output summary to console
         if: always()
         run: echo ${{ steps.run-newman.outputs.summary }}
