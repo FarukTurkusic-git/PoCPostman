@@ -37,8 +37,7 @@ jobs:
         run: sudo apt-get install libcurl4-openssl-dev
     # Install script
       - name: Before script
-        run: | 
-          apt-get install -y -qq curl
+        run: |
           curl -sL https://deb.nodesource.com/setup_14.x | bash -
           apt-get install -y nodejs
           npm install newman -g
