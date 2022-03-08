@@ -38,11 +38,6 @@ jobs:
           
       - name: Install cURL Headers
         run: sudo apt-get install libcurl4-openssl-dev
-        
-    # Install script
-      - name: Before script
-        run: |
-          sudo rm /var/lib/apt/lists/lock
-          curl -sL https://deb.nodesource.com/setup_14.x | bash -
-          #sudo apt-get install -y nodejs
+             curl -sL https://deb.nodesource.com/setup_14.x | bash -
+   
           
